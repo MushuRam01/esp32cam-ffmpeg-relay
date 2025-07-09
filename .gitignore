@@ -1,2 +1,8 @@
 #remove env
 .env
+
+#ignore logs
+.logs
+
+#ignore node modules
+node_modules/

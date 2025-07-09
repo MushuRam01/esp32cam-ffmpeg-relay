@@ -5,5 +5,7 @@
   "scripts": {
     "start": "node server.js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "dotenv": "^17.1.0"
+  }
 }
