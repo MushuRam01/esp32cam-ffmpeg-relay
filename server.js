@@ -1,17 +1,21 @@
 const { spawn } = require('child_process');
+require('dotenv').config();
 
-const ESP_IP = process.env.ESP_RTSP_URL;
-const RTMP_URL = process.env.RTMP_PUSH_URL;
+const ESP_STREAM_URL = process.env.ESP_STREAM_URL;
+const RTMP_PUSH_URL = process.env.RTMP_PUSH_URL;
 
-console.log(`Starting FFmpeg to pull from ${ESP_IP} and push to ${RTMP_URL}`);
 
-const ffmpeg = spawn('ffmpeg', [
-  '-rtsp_transport', 'tcp',
-  '-i', ESP_IP,
-  '-c:v', 'copy',
-  '-f', 'flv',
-  RTMP_URL
+
+console.log(`Starting FFmpeg to pull from ${ESP_STREAM_URL} and push to ${RTMP_PUSH_URL}`);
+
+const ffmpeg = spawn("ffmpeg", [
+  "-f", "mjpeg",
+  "-i", ESP_STREAM_URL,
+  "-c:v", "libx264",
+  "-f", "flv",
+  RTMP_PUSH_URL
 ]);
+
 
 ffmpeg.stderr.on('data', (data) => {
   console.error(`ffmpeg stderr: ${data}`);
